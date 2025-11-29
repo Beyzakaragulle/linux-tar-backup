@@ -1,0 +1,30 @@
+name: Backup Script Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-backup:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set execute permission for script
+      run: chmod +x backup.sh
+
+    - name: Run backup script
+      run: ./backup.sh
+
+    - name: Check backup file exists
+      run: |
+        BACKUP_FILE=$(ls backups/test_proje_*.tar.gz)
+        if [ ! -f "$BACKUP_FILE" ]; then
+          echo "Backup file not found!"
+          exit 1
+        fi
+
