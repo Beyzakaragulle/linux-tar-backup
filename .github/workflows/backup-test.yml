@@ -1,3 +1,8 @@
+- name: Set execute permission for script
+  run: chmod +x linux-tar-bacup/backup.sh
+
+- name: Run backup script
+  run: ./linux-tar-bacup/backup.sh
 name: Backup Script Test
 
 on:
